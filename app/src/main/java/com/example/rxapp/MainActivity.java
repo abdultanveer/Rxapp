@@ -9,11 +9,13 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName() ;
+    Disposable disposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +29,20 @@ public class MainActivity extends AppCompatActivity {
         animalsObservable
                 .subscribeOn(Schedulers.io())//do job on io thread which is not cpu intensive
                 .observeOn(AndroidSchedulers.mainThread()) //receive data on main thread / ui thread
+                .filter(new Predicate<String>() {
+                    @Override
+                    public boolean test(String s) throws Exception {
+                        return s.toLowerCase().startsWith("b");
+                    }
+                })
                 .subscribe(animalsObserver); //subscription or registration
+
 
 
     }
 
     private Observable<String> getAnimalObservable() {
-        return  Observable.just("Ant", "Bee", "Cat", "Dog", "Fox");
+        return  Observable.just("Ant", "Bee", "Cat", "Dog", "Fox","Bat", "Bear", "Butterfly");
 
     }
 
@@ -43,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSubscribe(Disposable d) {
                 Log.d(TAG, "onSubscribe");
+                disposable = d;
 
             }
 
@@ -64,5 +74,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        disposable.dispose();
     }
 }
