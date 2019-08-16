@@ -9,17 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdvDataBindAct">
+        <activity android:name=".FlavoursActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".AdvDataBindAct">
 
         </activity>
-        <activity android:name=".DataBndingAct">
-           </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".DataBndingAct"></activity>
+        <activity android:name=".MainActivity" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="64f9c2a905cfd0dad7216a84462f42986d924f17" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
