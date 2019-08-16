@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Rxapp</string>
+    <string name="facebook_app_id">348812906071079</string>
+    <string name="fb_login_protocol_scheme">fb348812906071079</string>
+
 </resources>
